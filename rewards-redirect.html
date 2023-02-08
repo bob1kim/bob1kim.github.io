@@ -1,0 +1,23 @@
+<html>
+  <head></head>
+  <body>
+    <script>
+    
+      (function() {
+        var app = {
+          launchApp: function() {
+            window.location.replace("com.samsung.plus.rewards://QNA");
+            this.timer = setTimeout(this.openWebApp, 1000);
+          },
+
+          openWebApp: function() {
+            window.location.replace("https://itunes.apple.com/kr/app/id1539119937");
+          }
+        };
+
+        app.launchApp();
+      })();
+    </script>
+    
+  </body>
+</html>
