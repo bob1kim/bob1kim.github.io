@@ -4,29 +4,31 @@
     <script>
     
       (function() {
+        var queryString = window.location.search;
+        var urlParams = new URLSearchParams(queryString);
+        var scheme = urlParams.get('scheme')
         var visitedAt = (new Date()).getTime();
         var userAgent = navigator.userAgent;
-        var schemeAddress = "com.samsung.plus.rewards://QNA";
         var app = {
           launchApp: function() {
             if (userAgent.match(/Android/i)) {
               setTimeout(
                   function() {
-                      if((new Date()).getTime() - visitedAt < 2000) { 
-                          location.href = "https://rewards.samsungplus.net/";
-                      }
+                    if((new Date()).getTime() - visitedAt < 2000) {
+                      location.href = "https://rewards.samsungplus.net/";
+                    }
                   }, 500);
 
               var iframe = document.createElement('iframe');
-              iframe.style.visibility = schemeAddress;
-              iframe.src = schemeAddress;
+              iframe.style.visibility = 'hidden';
+              iframe.src = scheme;
               document.body.appendChild(iframe);
               document.body.removeChild(iframe);
             } else if (userAgent.match(/iPhone/i)) {
-               window.location.replace(schemeAddress);
-               this.timer = setTimeout(function() {
-                  window.location.replace("https://itunes.apple.com/kr/app/id1539119937");
-               }, 1000); 
+              window.location.replace(scheme);
+              this.timer = setTimeout(function() {
+                window.location.replace("https://itunes.apple.com/kr/app/id1539119937");
+              }, 1000);
             }
           }
         };
