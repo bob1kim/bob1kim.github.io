@@ -4,13 +4,12 @@
     <script>
     
       (function() {
+        var visitedAt = (new Date()).getTime();
         var schemeAddress = "com.samsung.plus.rewards://QNA";
         var app = {
           launchApp: function() {
             if (userAgent.match(/Android/i)) {
               setTimeout(
-                  var visitedAt = (new Date()).getTime();
-
                   function() {
                       if((new Date()).getTime() - visitedAt < 2000) { 
                           location.href = "https://play.google.com/store/apps/details?id=com.samsung.plus.rewards";
