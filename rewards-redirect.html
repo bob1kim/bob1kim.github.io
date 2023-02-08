@@ -4,14 +4,30 @@
     <script>
     
       (function() {
+        var schemeAddress = "com.samsung.plus.rewards://QNA";
         var app = {
           launchApp: function() {
-            window.location.replace("com.samsung.plus.rewards://QNA");
-            this.timer = setTimeout(this.openWebApp, 1000);
-          },
+            if (userAgent.match(/Android/i)) {
+              setTimeout(
+                  var visitedAt = (new Date()).getTime();
 
-          openWebApp: function() {
-            window.location.replace("https://itunes.apple.com/kr/app/id1539119937");
+                  function() {
+                      if((new Date()).getTime() - visitedAt < 2000) { 
+                          location.href = "https://play.google.com/store/apps/details?id=com.samsung.plus.rewards";
+                      }
+                  }, 500);
+
+              var iframe = document.createElement('iframe');
+              iframe.style.visibility = schemeAddress;
+              iframe.src = schemeAddress;
+              document.body.appendChild(iframe);
+              document.body.removeChild(iframe);
+            } else if (userAgent.match(/iPhone/i)) {
+               window.location.replace(schemeAddress);
+               this.timer = setTimeout(function() {
+                  window.location.replace("https://itunes.apple.com/kr/app/id1539119937");
+               }, 1000); 
+            }
           }
         };
 
