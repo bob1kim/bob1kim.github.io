@@ -2,39 +2,47 @@
   <head></head>
   <body>
     <script>
-    
-      (function() {
-        var queryString = window.location.search;
-        var urlParams = new URLSearchParams(queryString);
-        var scheme = urlParams.get('scheme')
-        var visitedAt = (new Date()).getTime();
-        var userAgent = navigator.userAgent;
-        var app = {
-          launchApp: function() {
-            if (userAgent.match(/Android/i)) {
-              setTimeout(
-                  function() {
-                    if((new Date()).getTime() - visitedAt < 2000) {
-                      location.href = "https://rewards.samsungplus.net/";
-                    }
-                  }, 500);
+    (function() {
+		var queryString = window.location.search;
+		var urlParams = new URLSearchParams(queryString);
+		var hostname = window.location.hostname;
+		var scheme = decodeURI(urlParams.get('scheme'));
+		var visitedAt = (new Date()).getTime();
+		var userAgent = navigator.userAgent;
+		var androidUrl = "https://rewards.samsungplus.net/";
 
-              var iframe = document.createElement('iframe');
-              iframe.style.visibility = 'hidden';
-              iframe.src = scheme;
-              document.body.appendChild(iframe);
-              document.body.removeChild(iframe);
-            } else if (userAgent.match(/iPhone/i)) {
-              window.location.replace(scheme);
-              this.timer = setTimeout(function() {
-                window.location.replace("https://itunes.apple.com/kr/app/id1539119937");
-              }, 1000);
-            }
-          }
-        };
+		if (hostname.includes("stage")) {
+			androidUrl = "https://rewards-stage.samsungplus.net/";
+		} else if (hostname.includes("dev")) {
+			androidUrl = "https://rewards-dev.samsungplus.net/";
+		}
 
-        app.launchApp();
-      })();
+		var app = {
+			launchApp: function() {
+				if (userAgent.match(/Android/i)) {
+					setTimeout(
+							function() {
+								if((new Date()).getTime() - visitedAt < 2000) {
+									location.href = androidUrl;
+								}
+							}, 500);
+
+					var iframe = document.createElement('iframe');
+					iframe.style.visibility = 'hidden';
+					iframe.src = scheme;
+					document.body.appendChild(iframe);
+					document.body.removeChild(iframe);
+				} else if (userAgent.match(/iPhone/i)) {
+					window.location.replace(scheme);
+					this.timer = setTimeout(function() {
+						window.location.replace("https://itunes.apple.com/kr/app/id1539119937");
+					}, 1000);
+				}
+			}
+		};
+
+		app.launchApp();
+	})();
     </script>
     
   </body>
