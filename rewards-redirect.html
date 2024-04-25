@@ -1,8 +1,8 @@
 <html>
-  <head></head>
-  <body>
-    <script>
-    (function() {
+<head></head>
+<body>
+<script>
+	(function() {
 		var queryString = window.location.search;
 		var urlParams = new URLSearchParams(queryString);
 		var hostname = window.location.hostname;
@@ -33,17 +33,25 @@
 					document.body.appendChild(iframe);
 					document.body.removeChild(iframe);
 				} else if (userAgent.match(/iPhone/i)) {
-					window.location.replace(scheme);
+					window.href = scheme;
+					this.schInterval = setInterval(function(){
+						if(document.webkitHidden || document.hidden){
+							clearInterval(this.schInterval);
+							clearTimeout(this.timer);
+						}
+					}, 500);
+
 					this.timer = setTimeout(function() {
 						window.location.replace("https://itunes.apple.com/kr/app/id1539119937");
-					}, 1000);
+						clearInterval(this.schInterval);
+					}, 2000);
 				}
 			}
 		};
 
 		app.launchApp();
 	})();
-    </script>
-    
-  </body>
+</script>
+
+</body>
 </html>
