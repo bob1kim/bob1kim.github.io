@@ -39,6 +39,9 @@
 							var req = new XMLHttpRequest();
 							req.open('GET', scheme, true);
 							req.send();
+
+							console.log(req.status)
+							
 							if (req.status != "200") {
 								window.location.replace("https://itunes.apple.com/kr/app/id1539119937");
 							}
