@@ -21,11 +21,11 @@
 			launchApp: function() {
 				if (userAgent.match(/Android/i)) {
 					setTimeout(
-							function() {
-								if((new Date()).getTime() - visitedAt < 2000) {
-									location.href = androidUrl;
-								}
-							}, 500);
+						function() {
+							if((new Date()).getTime() - visitedAt < 2000) {
+								location.href = androidUrl;
+							}
+						}, 500);
 
 					var iframe = document.createElement('iframe');
 					iframe.style.visibility = 'hidden';
@@ -33,21 +33,17 @@
 					document.body.appendChild(iframe);
 					document.body.removeChild(iframe);
 				} else if (userAgent.match(/iPhone/i)) {
-					window.href = scheme;
-					this.schInterval = setInterval(function(){
-						console.log(0);
-						if(document.webkitHidden || document.hidden){
-							clearInterval(this.schInterval);
-							clearTimeout(this.timer);
-							console.log(1);
-						}
-					}, 500);
 
-					this.timer = setTimeout(function() {
-						window.location.replace("https://itunes.apple.com/kr/app/id1539119937");
-						clearInterval(this.schInterval);
-						console.log(2);
-					}, 2000);
+					setTimeout(
+						function() {
+							var req = new XMLHttpRequest();
+							req.open('GET', scheme, true);
+							req.send();
+							if (req.status != "200") {
+								window.location.replace("https://itunes.apple.com/kr/app/id1539119937");
+							}
+						}, 500);
+
 				}
 			}
 		};
