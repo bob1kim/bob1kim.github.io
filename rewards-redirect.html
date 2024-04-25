@@ -35,15 +35,18 @@
 				} else if (userAgent.match(/iPhone/i)) {
 					window.href = scheme;
 					this.schInterval = setInterval(function(){
+						console.log(0);
 						if(document.webkitHidden || document.hidden){
 							clearInterval(this.schInterval);
 							clearTimeout(this.timer);
+							console.log(1);
 						}
 					}, 500);
 
 					this.timer = setTimeout(function() {
 						window.location.replace("https://itunes.apple.com/kr/app/id1539119937");
 						clearInterval(this.schInterval);
+						console.log(2);
 					}, 2000);
 				}
 			}
